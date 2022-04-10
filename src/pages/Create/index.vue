@@ -129,4 +129,8 @@ function gotoList () {
   margin: 0 auto;
   text-align: left;
 }
+.submitBtn {
+  margin-top: 16px;
+  text-align: center;
+}
 </style>
