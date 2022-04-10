@@ -13,6 +13,7 @@
         <div class="author" v-if="item.editor">
           <var-icon name="card-account-details-outline"></var-icon>作者：{{ item.editor }}
         </div>
+        <div v-else />
         <div class="tagOuter">
           <div class="tagBox" v-for="tag of item.tag.split(',')" :key="tag">
             {{
@@ -67,6 +68,7 @@ onMounted(() => {
   flex-wrap: wrap;
 }
 .tagBox {
+  margin-right: 6px;
   color: #fff;
   background: rgb(0, 150, 136);
   font-size: 14px;
@@ -74,6 +76,9 @@ onMounted(() => {
   padding: 0 4px;
   border-radius: 2px;
   /*line-height: 1;*/
+}
+.tagBox:nth-last-child(1) {
+  margin-right: 0;
 }
 .link {
   text-align: center;

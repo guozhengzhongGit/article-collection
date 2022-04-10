@@ -8,7 +8,7 @@
     <div class="configTag" v-if="active === 1">
       <div class="formOuter">
         <var-form ref="tagForm">
-          <var-input placeholder="请输入标签名" :maxlength="10" v-model="tagInfo.tagName" :rules="[v => !!v || '标签名不能为空']" />
+          <var-input placeholder="请输入标签名" :maxlength="20" v-model="tagInfo.tagName" :rules="[v => !!v || '标签名不能为空']" />
         </var-form>
         <div class="saveBtn">
           <var-button :loading="tagInfo.loading" type="primary" loading-type="wave" @click="createTag()">
