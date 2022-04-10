@@ -137,8 +137,8 @@ const fetchPlatformList = async () => {
 }
 
 async function createTag() {
-  const validateRes = await this.tagForm.validate();
-  console.log(validateRes)
+  const validateRes = await tagForm.value.validate();
+  console.log('tagForm 的验证结果', validateRes);
   if (!validateRes) return;
     tagInfo.loading = true
   const res = await postCreateTag({ tag_name: tagInfo.tagName });
@@ -148,7 +148,7 @@ async function createTag() {
 }
 
 async function createPlatform() {
-  const validateRes = await this.platformForm.validate();
+  const validateRes = await platformForm.value.validate();
   if (!validateRes) return;
   const res = await postCreatePlatform({ platform_name: platformInfo.platformName });
   console.log(res);

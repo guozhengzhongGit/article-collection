@@ -66,8 +66,7 @@ const formData = reactive({
 })
 
 async function validateForm () {
-  const res = await this.form.validate();
-  console.log(res);
+  const res = await form.value.validate();
   if (!res) return;
   addArticle();
 }
