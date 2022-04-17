@@ -7,3 +7,10 @@ export const postFetchArticleList = async (params) => {
         data: params,
     })
 }
+
+export const postSearchArticleList = async (params) => {
+    return http({
+        url: '/searcharticlelist',
+        data: params,
+    })
+}

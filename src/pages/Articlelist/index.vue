@@ -1,5 +1,10 @@
 <template>
 <div class="outer">
+  <div class="filterContainer">
+    <var-input placeholder="请输入查询关键字" clearable v-model="keywords" @clear="resetSearch" />
+    <br />
+    <var-button @click="searchArticleList">查询</var-button>
+  </div>
 <div class="listContainer">
   <div v-for="item of list" :key="item.uuid" class="listCard">
     <var-card
@@ -32,9 +37,10 @@
 </template>
 
 <script setup>
-import { postFetchArticleList } from  './service';
+import { postFetchArticleList, postSearchArticleList } from  './service';
 import { onMounted, ref } from 'vue';
 const list = ref([]);
+const keywords = ref('');
 async function fetchArticleList() {
   const res = await postFetchArticleList();
   console.log(res);
@@ -44,12 +50,32 @@ onMounted(() => {
   fetchArticleList();
 })
 
+const searchArticleList = async () => {
+  const params = keywords.value;
+  console.log(params);
+  if (!params) return;
+  const res = await postSearchArticleList({ keywords: params })
+  console.log(res);
+  if (res.code === 200) {
+    list.value = res.data;
+  }
+}
+
+const resetSearch = () => {
+  fetchArticleList();
+}
+
 </script>
 
 <style scoped>
+.filterContainer {
+  margin-top: 40px;
+  margin-bottom: 20px;
+}
 .outer {
   width: 90%;
   margin: 0 auto;
+  overflow: hidden;
 }
 .listContainer {
 
