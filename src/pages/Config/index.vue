@@ -8,9 +8,13 @@
     <div class="configTag" v-if="active === 1">
       <div class="formOuter">
         <var-form ref="tagForm">
-          <var-input placeholder="请输入标签名" :maxlength="20" v-model="tagInfo.tagName" :rules="[v => !!v || '标签名不能为空']" />
+          <var-input placeholder="请输入标签名" :maxlength="20" v-model="tagInfo.tagName" :rules="[v => !!v || '标签名不能为空']" clearable @clear="resetSearch" />
         </var-form>
         <div class="saveBtn">
+          <var-button type="default" loading-type="wave" @click="searchTag()">
+            查询标签
+          </var-button>
+          &nbsp;&nbsp;&nbsp;&nbsp;
           <var-button :loading="tagInfo.loading" type="primary" loading-type="wave" @click="createTag()">
             新建标签
           </var-button>
@@ -89,7 +93,7 @@
 
 <script setup>
 import {reactive, ref, onMounted} from 'vue';
-import { postCreateTag, getTagList, postFetchPlatformList, postCreatePlatform } from './service';
+import { postCreateTag, getTagList, postFetchPlatformList, postCreatePlatform, searchTagByKeywords } from './service';
 const tabs = [
   {
     name: '配置标签',
@@ -147,6 +151,14 @@ async function createTag() {
   await fetchTagList()
 }
 
+async function searchTag() {
+  const tag = tagInfo.tagName;
+  const res = await searchTagByKeywords({ keywords: tag });
+  if (res.code === 200) {
+    tagList.value = res.data;
+  }
+}
+
 async function createPlatform() {
   const validateRes = await platformForm.value.validate();
   if (!validateRes) return;
@@ -171,6 +183,10 @@ onMounted(() => {
   fetchPlatformList();
 
 })
+
+const resetSearch = () => {
+  fetchTagList();
+}
 </script>
 
 <style scoped>

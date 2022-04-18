@@ -26,3 +26,10 @@ export const postCreatePlatform = async (params) => {
         data: params
     })
 }
+
+export const searchTagByKeywords = async (params) => {
+    return http({
+        url: '/searchtagbykeywords',
+        data: params,
+    })
+}
