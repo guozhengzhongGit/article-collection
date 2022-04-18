@@ -57,7 +57,7 @@ import { postFetchPlatformList, getTagList, postAddArticle } from './service';
 const form = ref(null);
 const tagList = ref([]);
 const platformList = ref([]);
-const fetchingTagList = ref(true);
+const fetchingTagList = ref(false);
 
 const formData = reactive({
   title: '',
@@ -101,6 +101,7 @@ const resetForm = () => {
 }
 
 const fetchTagList = async () => {
+  fetchingTagList.value = true;
   const res = await getTagList();
   if (res.code === 200) {
     fetchingTagList.value = false;
