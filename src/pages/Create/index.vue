@@ -29,11 +29,13 @@
       <var-option v-for="v of platformList" :label="v.platform_name" :key="v.id" :value="v.id" />
     </var-select>
     <var-select
+        :disabled="fetchingTagList"
         chip
         multiple
         placeholder="文章标签"
         :rules="[(v) => v.length && v.length < 4 || '必选且最多选择三个']"
         v-model="formData.tag"
+        @focus="fetchTagList"
     >
 
       <var-option v-for="v of tagList" :label="v.tag_name" :key="v.tag_id" />
@@ -55,6 +57,7 @@ import { postFetchPlatformList, getTagList, postAddArticle } from './service';
 const form = ref(null);
 const tagList = ref([]);
 const platformList = ref([]);
+const fetchingTagList = ref(true);
 
 const formData = reactive({
   title: '',
@@ -100,6 +103,7 @@ const resetForm = () => {
 const fetchTagList = async () => {
   const res = await getTagList();
   if (res.code === 200) {
+    fetchingTagList.value = false;
     tagList.value = res.data;
   }
 }
@@ -112,7 +116,6 @@ const fetchPlatformList = async () => {
 }
 
 onMounted(() => {
-  fetchTagList();
   fetchPlatformList();
 })
 
