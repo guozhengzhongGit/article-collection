@@ -34,6 +34,7 @@
   </div>
 </div>
 </div>
+  <var-back-top :duration="600" />
 </template>
 
 <script setup>
@@ -73,7 +74,7 @@ const resetSearch = () => {
   margin-bottom: 20px;
 }
 .outer {
-  width: 90%;
+  width: 80%;
   margin: 0 auto;
   overflow: hidden;
 }
